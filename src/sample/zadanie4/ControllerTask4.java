@@ -3,6 +3,8 @@ package sample.zadanie4;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -41,28 +43,59 @@ public class ControllerTask4 {
     @FXML
     private Button ButtonToCatch;
 
+    private Timer timer;
+    private boolean started;
+
     @FXML
     void initialize() {
+        started = false;
+
         ButtonStartStop.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                LabelTaunt.setText("Лови");
-                boolean isSelected = RadioEasy.isSelected();
-                Random r = new Random();
-                int y = r.nextInt(250);
-                int x = r.nextInt(300) - 300;
-                ButtonToCatch.setTranslateY(y);
-                ButtonToCatch.setTranslateX(x);
+                if(started){
+                    timer.cancel();
+                    started = false;
+                    LabelTaunt.setText("Не поймал");
+                }else {
+                    started = true;
+                    LabelTaunt.setText("Лови");
+
+                    if(RadioEasy.isSelected()){
+                        randomSpawn(1000);
+                    }else if(RadioMedium.isSelected()){
+                        randomSpawn(500);
+                    }else if(RadioHard.isSelected()){
+                        randomSpawn(250);
+                    }
+                }
             }
         }
         );
-        ButtonToCatch.setOnAction(e -> LabelTaunt.setText("Пиймав на гендзюцу"));
+        ButtonToCatch.setOnAction(e -> {
+            LabelTaunt.setText("Пиймав на гендзюцу");
+            timer.cancel();
+            started = false;
+        });
+    }
+
+    public void randomSpawn(int a){
+        timer = new Timer();
+        timer.schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        Random r = new Random();
+                        int y = r.nextInt(250);
+                        int x = r.nextInt(300) - 300;
+                        ButtonToCatch.setTranslateY(y);
+                        ButtonToCatch.setTranslateX(x);
+                    }
+                }, 0, a);
     }
 }
 
 
+
 // x -300 0
 // y  0 250
-
-
-//TODO timer
