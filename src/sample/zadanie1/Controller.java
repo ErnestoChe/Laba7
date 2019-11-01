@@ -42,12 +42,19 @@ public class Controller {
                 new EventHandler<ActionEvent>() {
                     double a,b,c,D;
                     @Override public void handle(ActionEvent e) {
-                        a = Double.parseDouble(aKoefText.getText());
-                        b = Double.parseDouble(bKoefText.getText());
-                        c = Double.parseDouble(cKoefText.getText());
+                        try{
+                            a = Double.parseDouble(aKoefText.getText());
+                            b = Double.parseDouble(bKoefText.getText());
+                            c = Double.parseDouble(cKoefText.getText());
 
-                        DiscLabel.setText("При D = " + Disc(a,b,c));
-                        KoefLabel.setText(ans(a,b,c));
+                            if(a == 0){
+                                DiscLabel.setText("Линейное уравнение, D недоступен");
+                            }else DiscLabel.setText("При D = " + Disc(a,b,c));
+                            KoefLabel.setText(ans(a,b,c));
+
+                        }catch (NumberFormatException e1){
+                            DiscLabel.setText("неверные коэффициенты");
+                        }
                     }
                 }
         );
@@ -63,7 +70,11 @@ public class Controller {
         double D = Disc(a, b, c);
         D = Math.round(D * 100.0) / 100.0;
         String ans = "";
-        if (D > 0) {
+        if(a == 0){
+            double x1 = -c / b;
+            ans = "Линейное уравнение, корень х = " + x1;
+        }
+        else if (D > 0) {
             double x1 = (-b + Math.sqrt(D)) / (2 * a);
             double x2 = (-b - Math.sqrt(D)) / (2 * a);
 
