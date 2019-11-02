@@ -1,9 +1,5 @@
 package sample.zadanie3;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,13 +11,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 
 public class ControllerTask3 {
-
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private ComboBox<String> ComboBoxFirst;

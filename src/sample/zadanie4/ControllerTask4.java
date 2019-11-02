@@ -1,11 +1,5 @@
 package sample.zadanie4;
 
-import java.net.URL;
-import java.util.Random;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,14 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ControllerTask4 {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private RadioButton RadioEasy;
@@ -57,10 +48,11 @@ public class ControllerTask4 {
                     timer.cancel();
                     started = false;
                     LabelTaunt.setText("Не поймал");
+                    ButtonStartStop.setText("Начать снова");
                 }else {
                     started = true;
                     LabelTaunt.setText("Лови");
-
+                    ButtonStartStop.setText("Стоп, я сдаюсь");
                     if(RadioEasy.isSelected()){
                         randomSpawn(1000);
                     }else if(RadioMedium.isSelected()){
