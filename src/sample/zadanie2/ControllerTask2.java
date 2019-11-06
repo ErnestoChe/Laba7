@@ -37,16 +37,22 @@ public class ControllerTask2 {
                 new EventHandler<ActionEvent>() {
                     double x, y;
                     @Override public void handle(ActionEvent e) {
-                        x = Double.parseDouble(TextXCoord.getText());
-                        y = Double.parseDouble(TextYCoord.getText());
+                        try{
+                            x = Double.parseDouble(TextXCoord.getText());
+                            y = Double.parseDouble(TextYCoord.getText());
 
-                        if(isHit(x, y)){
-                            LabelResult.setText("Точка (" + x + "; " + y + ") лежит в этой области");
-                            LabelResult.setTextFill(Color.BLUE);
-                        }else{
-                            LabelResult.setText("Точка (" + x + "; "+ y + ") не попала в эту область");
+                            if(isHit(x, y)){
+                                LabelResult.setText("Точка (" + x + "; " + y + ") лежит в этой области");
+                                LabelResult.setTextFill(Color.BLUE);
+                            }else{
+                                LabelResult.setText("Точка (" + x + "; "+ y + ") не попала в эту область");
+                                LabelResult.setTextFill(Color.RED);
+                            }
+                        }catch(NumberFormatException ex){
+                            LabelResult.setText("Введены некорректные значения");
                             LabelResult.setTextFill(Color.RED);
                         }
+
                     }
                 }
         );
